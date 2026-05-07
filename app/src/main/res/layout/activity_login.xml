@@ -28,7 +28,7 @@
 
     <EditText
         android:id="@+id/edtSenha"
-        android:hint="Digite seu Nome de Usuário"
+        android:hint="Digite a sua Senha"
         android:padding="12dp"
         android:background="@android:drawable/edit_text"
         android:layout_marginBottom="16dp"

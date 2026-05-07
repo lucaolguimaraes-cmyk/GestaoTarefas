@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         setResult(RESULT_OK)
-        finish()
+       // finish()
     }
 
     private fun carregarTarefa(id: Int) {
