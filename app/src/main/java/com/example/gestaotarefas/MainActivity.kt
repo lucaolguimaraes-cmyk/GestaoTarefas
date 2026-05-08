@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import android.database.Cursor
+import android.content.SharedPreferences
+import android.widget.TextView
+import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,12 +17,14 @@ class MainActivity : AppCompatActivity() {
     lateinit var spnPrioridade: Spinner
     lateinit var spnStatus: Spinner
 
-    var tarefaId: Int = -1 // controla edição
+    var tarefaId: Int = -1
     var usuario: String? = null
+    lateinit var prefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        prefs = getSharedPreferences("login", MODE_PRIVATE)
 
         dbHelper = DatabaseHelper(this)
 
@@ -29,7 +34,30 @@ class MainActivity : AppCompatActivity() {
 
         val prioridades = arrayOf("Baixa", "Média", "Alta")
         val statusList = arrayOf("Pendente", "Em andamento", "Concluída")
+
         usuario = intent.getStringExtra("usuario")
+
+        if (usuario.isNullOrEmpty()) {
+            usuario = prefs.getString("usuario", "") ?: ""
+        }
+
+        val txtOla = findViewById<TextView>(R.id.txtOla)
+        val btnLogout = findViewById<Button>(R.id.btnLogout)
+
+        val primeiroNome = usuario?.split(" ")?.firstOrNull() ?: "Usuário"
+
+        txtOla.text = "Olá, $primeiroNome"
+
+        btnLogout.setOnClickListener {
+
+            prefs.edit().clear().apply()
+
+            val intent = Intent(this, LoginActivity::class.java)
+
+            startActivity(intent)
+
+            finish()
+        }
 
         spnPrioridade.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, prioridades)
@@ -49,20 +77,30 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.btnVerTarefas).setOnClickListener {
+
             val intent = Intent(this, ListaTarefasActivity::class.java)
+
             intent.putExtra("usuario", usuario)
+
             startActivity(intent)
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        limparCampos()
+    }
+
     private fun salvarOuAtualizar() {
 
-        val titulo = edtTitulo.text.toString()
-
+        val titulo = edtTitulo.text.toString().trim()
 
         // validação
         if (titulo.isEmpty()) {
+
             Toast.makeText(this, "Digite um título", Toast.LENGTH_SHORT).show()
+
             return
         }
 
@@ -72,6 +110,7 @@ class MainActivity : AppCompatActivity() {
         val db = dbHelper.writableDatabase
 
         val valores = ContentValues().apply {
+
             put("titulo", titulo)
             put("status", status)
             put("prioridade", prioridade)
@@ -79,17 +118,30 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (tarefaId == -1) {
+
             // NOVA TAREFA
             db.insert("tarefas", null, valores)
-            Toast.makeText(this, "Tarefa criada!", Toast.LENGTH_SHORT).show()
-        } else {
-            // EDITAR
-            db.update("tarefas", valores, "id=?", arrayOf(tarefaId.toString()))
-            Toast.makeText(this, "Tarefa atualizada!", Toast.LENGTH_SHORT).show()
-        }
 
-        setResult(RESULT_OK)
-       // finish()
+            Toast.makeText(this, "Tarefa criada!", Toast.LENGTH_SHORT).show()
+
+            limparCampos()
+
+        } else {
+
+            // EDITAR
+            db.update(
+                "tarefas",
+                valores,
+                "id=?",
+                arrayOf(tarefaId.toString())
+            )
+
+            Toast.makeText(this, "Tarefa atualizada!", Toast.LENGTH_SHORT).show()
+
+            tarefaId = -1
+
+            limparCampos()
+        }
     }
 
     private fun carregarTarefa(id: Int) {
@@ -110,17 +162,31 @@ class MainActivity : AppCompatActivity() {
 
             val statusIndex =
                 (spnStatus.adapter as ArrayAdapter<String>).getPosition(status)
+
             if (statusIndex >= 0) {
                 spnStatus.setSelection(statusIndex)
             }
 
             val prioridadeIndex =
                 (spnPrioridade.adapter as ArrayAdapter<String>).getPosition(prioridade)
+
             if (prioridadeIndex >= 0) {
                 spnPrioridade.setSelection(prioridadeIndex)
             }
         }
 
         cursor.close()
+    }
+
+    private fun limparCampos() {
+
+        edtTitulo.setText("")
+
+        spnPrioridade.setSelection(0)
+        spnStatus.setSelection(0)
+
+        tarefaId = -1
+
+        intent.removeExtra("id")
     }
 }

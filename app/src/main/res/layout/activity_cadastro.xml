@@ -8,14 +8,14 @@
     android:gravity="center"
     android:background="@drawable/bg_gradient"
     android:padding="24dp"
-    tools:context=".LoginActivity">
+    tools:context=".CadastroActivity">
 
     <!-- TITULO -->
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bem Vindo ao\nCheckPoint"
+        android:text="Criar Conta"
         android:textColor="@android:color/white"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -28,16 +28,16 @@
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@android:drawable/ic_menu_myplaces"
+        android:src="@android:drawable/ic_input_add"
         android:tint="@android:color/white"
         android:layout_marginBottom="20dp"/>
 
-    <!-- TEXTO LOGIN -->
+    <!-- TEXTO -->
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Faça seu login"
+        android:text="Faça seu cadastro"
         android:textColor="@android:color/white"
         android:textSize="22sp"
         android:layout_marginBottom="35dp"/>
@@ -45,7 +45,7 @@
     <!-- USUARIO -->
 
     <EditText
-        android:id="@+id/edtNome"
+        android:id="@+id/edtNomeCadastro"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:hint="Usuário"
@@ -58,7 +58,7 @@
     <!-- SENHA -->
 
     <EditText
-        android:id="@+id/edtSenha"
+        android:id="@+id/edtSenhaCadastro"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:hint="Senha"
@@ -69,25 +69,25 @@
         android:background="@drawable/edittext_style"
         android:layout_marginBottom="30dp"/>
 
-    <!-- LOGIN -->
+    <!-- BOTAO CADASTRAR -->
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnCadastrar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="LOGIN"
+        android:text="CADASTRAR"
         android:textStyle="bold"
         android:textSize="18sp"
         android:textColor="#000000"
         android:background="@drawable/button_style"/>
 
-    <!-- CADASTRO -->
+    <!-- BOTAO LOGIN -->
 
     <Button
-        android:id="@+id/btnIrCadastro"
+        android:id="@+id/btnJaTenhoLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Não tenho cadastro"
+        android:text="Já tenho login"
         android:textStyle="bold"
         android:textColor="@android:color/white"
         android:textSize="16sp"

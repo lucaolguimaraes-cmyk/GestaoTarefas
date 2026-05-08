@@ -15,8 +15,12 @@
         <!-- MAIN -->
         <activity android:name=".MainActivity" />
 
+        <activity android:name=".EditarTarefaActivity"/>
+
         <!-- LISTA -->
         <activity android:name=".ListaTarefasActivity" />
+
+        <activity android:name=".CadastroActivity" />
 
         <!-- LOGIN (AGORA É A TELA INICIAL) -->
         <activity

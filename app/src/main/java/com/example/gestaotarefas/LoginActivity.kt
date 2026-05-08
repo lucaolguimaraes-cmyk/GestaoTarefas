@@ -13,13 +13,16 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_login)
 
         db = DatabaseHelper(this)
 
         val edtNome = findViewById<EditText>(R.id.edtNome)
         val edtSenha = findViewById<EditText>(R.id.edtSenha)
+
         val btnLogin = findViewById<Button>(R.id.btnLogin)
+        val btnIrCadastro = findViewById<Button>(R.id.btnIrCadastro)
 
         btnLogin.setOnClickListener {
 
@@ -27,18 +30,34 @@ class LoginActivity : AppCompatActivity() {
             val senha = edtSenha.text.toString().trim()
 
             if (nome.isEmpty() || senha.isEmpty()) {
-                Toast.makeText(this, "Preencha tudo", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            if (!db.validarUsuario(nome, senha)) {
-                db.inserirUsuario(nome, senha)
+            if (db.validarUsuario(nome, senha)) {
+
+                Toast.makeText(this, "Login realizado!", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("usuario", nome)
+
+                val prefs = getSharedPreferences("login", MODE_PRIVATE)
+
+                prefs.edit()
+                    .putString("usuario", nome)
+                    .apply()
+
+                startActivity(intent)
+                finish()
+
+            } else {
+
+                Toast.makeText(this, "Usuário ou senha inválidos", Toast.LENGTH_SHORT).show()
             }
+        }
 
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("usuario", nome)
-            startActivity(intent)
-
+        btnIrCadastro.setOnClickListener {
+            startActivity(Intent(this, CadastroActivity::class.java))
             finish()
         }
     }

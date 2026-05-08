@@ -55,7 +55,7 @@ class ListaTarefasActivity : AppCompatActivity() {
         adapter = TarefaAdapter(
             listaFiltrada,
             onEditar = { tarefa ->
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, EditarTarefaActivity::class.java)
                 intent.putExtra("id", tarefa.id)
                 intent.putExtra("usuario", usuario)
                 startActivity(intent)
