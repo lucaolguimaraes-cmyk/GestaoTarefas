@@ -32,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         spnPrioridade = findViewById(R.id.spnPrioridade)
         spnStatus = findViewById(R.id.spnStatus)
 
-        val prioridades = arrayOf("Baixa", "Média", "Alta")
-        val statusList = arrayOf("Pendente", "Em andamento", "Concluída")
+        val prioridades = arrayOf("Baixa Prioridade", "Média Prioridade", "Alta Prioridade")
+        val statusList = arrayOf("A fazer", "Em andamento", "Quase concluída")
 
         usuario = intent.getStringExtra("usuario")
 

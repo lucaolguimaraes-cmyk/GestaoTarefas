@@ -29,8 +29,8 @@ class EditarTarefaActivity : AppCompatActivity() {
         spnStatus = findViewById(R.id.spnStatusEditar)
         btnSalvar = findViewById(R.id.btnSalvarEditar)
 
-        val prioridades = arrayOf("Baixa", "Média", "Alta")
-        val statusList = arrayOf("Pendente", "Em andamento", "Concluída")
+        val prioridades = arrayOf("Baixa Prioridade", "Média Prioridade", "Alta Prioridade")
+        val statusList = arrayOf("A fazer", "Em andamento", "Quase concluída")
 
         spnPrioridade.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, prioridades)

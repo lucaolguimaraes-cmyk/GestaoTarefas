@@ -123,8 +123,8 @@ class ListaTarefasActivity : AppCompatActivity() {
     }
 
     private fun configurarSpinners() {
-        val status = arrayOf("Sem filtro (STATUS)", "Pendente", "Em andamento", "Concluída")
-        val prioridade = arrayOf("Sem filtro (PRIORIDADE)", "Baixa", "Média", "Alta")
+        val status = arrayOf("Sem filtro (STATUS)", "A fazer", "Em andamento", "Quase concluída")
+        val prioridade = arrayOf("Sem filtro (PRIORIDADE)", "Baixa Prioridade", "Média Prioridade", "Alta Prioridade")
 
         spnStatus.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, status)
         spnPrioridade.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, prioridade)
