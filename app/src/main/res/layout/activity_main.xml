@@ -114,6 +114,12 @@
                 android:textColor="@android:color/white"
                 android:backgroundTint="#6A1B9A"/>
 
+            <Button
+                android:id="@+id/btnConcluidas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ver tarefas concluídas"/>
+
         </LinearLayout>
 
     </LinearLayout>

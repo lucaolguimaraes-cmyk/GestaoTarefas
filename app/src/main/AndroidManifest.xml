@@ -7,7 +7,7 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="GestaoTarefas"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GestaoTarefas">
@@ -15,21 +15,32 @@
         <!-- MAIN -->
         <activity android:name=".MainActivity" />
 
-        <activity android:name=".EditarTarefaActivity"/>
+        <!-- EDITAR -->
+        <activity android:name=".EditarTarefasActivity" />
+
+        <!-- PRIORIDADES -->
+        <activity android:name=".PrioridadesActivity" />
 
         <!-- LISTA -->
         <activity android:name=".ListaTarefasActivity" />
 
+        <!-- CONCLUÍDAS -->
+        <activity android:name=".ConcluidasActivity" />
+
+        <!-- CADASTRO -->
         <activity android:name=".CadastroActivity" />
 
-        <!-- LOGIN (AGORA É A TELA INICIAL) -->
+        <!-- LOGIN -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
 
             <intent-filter>
+
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
 
         </activity>

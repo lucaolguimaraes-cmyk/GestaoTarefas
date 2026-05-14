@@ -1,206 +1,256 @@
 package com.example.gestaotarefas
 
-// Importa a classe ContentValues para armazenar valores antes de atualizar no banco
 import android.content.ContentValues
-
-// Importa Bundle, utilizado no ciclo de vida da Activity
 import android.os.Bundle
-
-// Importa todos os componentes de widgets do Android
-import android.widget.*
-
-// Importa a classe AppCompatActivity
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-// Activity responsável por editar tarefas existentes
-class EditarTarefaActivity : AppCompatActivity() {
+class EditarTarefasActivity : AppCompatActivity() {
 
-    // Instância do banco de dados
+    // Banco de dados
     lateinit var dbHelper: DatabaseHelper
 
-    // Campo de texto para editar o título da tarefa
+    // Campo título
     lateinit var edtTitulo: EditText
 
-    // Spinner para selecionar prioridade
+    // Spinner prioridade
     lateinit var spnPrioridade: Spinner
 
-    // Spinner para selecionar status
+    // Spinner status
     lateinit var spnStatus: Spinner
 
-    // Botão para salvar alterações
+    // Botão salvar
     lateinit var btnSalvar: Button
 
-    // Variável que armazenará o ID da tarefa
-    // Começa com -1 indicando valor inválido
+    // ID da tarefa
     var tarefaId: Int = -1
 
-    // Variável que armazenará o usuário da tarefa
+    // Usuário
     var usuario: String = ""
 
-    // Método executado quando a Activity é criada
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        // Chama o método da classe pai
         super.onCreate(savedInstanceState)
 
-        // Define o layout XML da tela
         setContentView(R.layout.activity_editar_tarefa)
 
-        // Inicializa o helper do banco
+        // Inicializa banco
         dbHelper = DatabaseHelper(this)
 
-        // Conecta os componentes do XML com as variáveis Kotlin
-        edtTitulo = findViewById(R.id.edtTituloEditar)
+        // Liga XML
+        edtTitulo =
+            findViewById(R.id.edtTituloEditar)
 
-        spnPrioridade = findViewById(R.id.spnPrioridadeEditar)
+        spnPrioridade =
+            findViewById(R.id.spnPrioridadeEditar)
 
-        spnStatus = findViewById(R.id.spnStatusEditar)
+        spnStatus =
+            findViewById(R.id.spnStatusEditar)
 
-        btnSalvar = findViewById(R.id.btnSalvarEditar)
+        btnSalvar =
+            findViewById(R.id.btnSalvarEditar)
 
-        // Array contendo as opções de prioridade
+        // PRIORIDADES
         val prioridades = arrayOf(
+
             "Baixa Prioridade",
+
             "Média Prioridade",
+
             "Alta Prioridade"
         )
 
-        // Array contendo as opções de status
+        // STATUS
         val statusList = arrayOf(
+
             "A fazer",
+
             "Em andamento",
+
             "Quase concluída"
         )
 
-        // Define o adapter do Spinner de prioridade
-        // O adapter é responsável por preencher os itens do Spinner
+        // Adapter prioridade
         spnPrioridade.adapter =
+
             ArrayAdapter(
+
                 this,
+
                 android.R.layout.simple_spinner_dropdown_item,
+
                 prioridades
             )
 
-        // Define o adapter do Spinner de status
+        // Adapter status
         spnStatus.adapter =
+
             ArrayAdapter(
+
                 this,
+
                 android.R.layout.simple_spinner_dropdown_item,
+
                 statusList
             )
 
-        // Recebe o ID da tarefa enviado pela tela anterior
-        // Caso não exista, retorna -1
-        tarefaId = intent.getIntExtra("id", -1)
+        // Recebe ID
+        tarefaId =
+            intent.getIntExtra("id", -1)
 
-        // Recebe o nome do usuário enviado pela tela anterior
-        // ?: "" evita valor nulo
-        usuario = intent.getStringExtra("usuario") ?: ""
+        // Recebe usuário
+        usuario =
+            intent.getStringExtra("usuario") ?: ""
 
-        // Chama função responsável por carregar os dados da tarefa
+        // Carrega tarefa
         carregarTarefa()
 
-        // Evento de clique do botão salvar
+        // Clique salvar
         btnSalvar.setOnClickListener {
 
-            // Chama a função que atualiza a tarefa no banco
             atualizarTarefa()
         }
     }
 
-    // Função responsável por carregar os dados da tarefa
+    // Carrega dados da tarefa
     private fun carregarTarefa() {
 
-        // Obtém o banco em modo leitura
-        val db = dbHelper.readableDatabase
+        val db =
+            dbHelper.readableDatabase
 
-        // Executa consulta SQL buscando os dados da tarefa pelo ID
         val cursor = db.rawQuery(
-            "SELECT titulo, status, prioridade FROM tarefas WHERE id=?",
 
-            // Substitui o ? pelo ID da tarefa
+            """
+            SELECT titulo, status, prioridade
+            FROM tarefas
+            WHERE id=?
+            """.trimIndent(),
+
             arrayOf(tarefaId.toString())
         )
 
-        // Verifica se encontrou algum resultado
         if (cursor.moveToFirst()) {
 
-            // Define o título da tarefa no EditText
-            edtTitulo.setText(cursor.getString(0))
-
-            // Obtém o status da tarefa
-            val status = cursor.getString(1)
-
-            // Obtém a prioridade da tarefa
-            val prioridade = cursor.getString(2)
-
-            // Define automaticamente o item correto no Spinner de status
-            spnStatus.setSelection(
-                (spnStatus.adapter as ArrayAdapter<String>).getPosition(status)
+            // Título
+            edtTitulo.setText(
+                cursor.getString(0)
             )
 
-            // Define automaticamente o item correto no Spinner de prioridade
+            // Status
+            val status =
+                cursor.getString(1)
+
+            // Prioridade
+            val prioridade =
+                cursor.getString(2)
+
+            // Seleciona status
+            spnStatus.setSelection(
+
+                (
+                        spnStatus.adapter
+                                as ArrayAdapter<String>
+                        )
+
+                    .getPosition(status)
+            )
+
+            // Seleciona prioridade
             spnPrioridade.setSelection(
-                (spnPrioridade.adapter as ArrayAdapter<String>).getPosition(prioridade)
+
+                (
+                        spnPrioridade.adapter
+                                as ArrayAdapter<String>
+                        )
+
+                    .getPosition(prioridade)
             )
         }
 
-        // Fecha o cursor para liberar memória
         cursor.close()
     }
 
-    // Função responsável por atualizar a tarefa
+    // Atualiza tarefa
     private fun atualizarTarefa() {
 
-        // Obtém o título digitado
-        val titulo = edtTitulo.text.toString()
+        // Título digitado
+        val titulo =
+            edtTitulo.text.toString()
 
-        // Verifica se o campo está vazio
+        // Validação
         if (titulo.isEmpty()) {
 
-            // Exibe mensagem de erro
-            Toast.makeText(this, "Digite um título", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
 
-            // Interrompe a execução da função
+                this,
+
+                "Digite um título",
+
+                Toast.LENGTH_SHORT
+
+            ).show()
+
             return
         }
 
-        // Cria objeto ContentValues para armazenar os novos dados
+        // Valores atualizados
         val valores = ContentValues().apply {
 
-            // Atualiza o título
-            put("titulo", titulo)
+            // Atualiza título
+            put(
+                "titulo",
+                titulo
+            )
 
-            // Atualiza o status selecionado
-            put("status", spnStatus.selectedItem.toString())
+            // Atualiza status
+            put(
+                "status",
+                spnStatus.selectedItem.toString()
+            )
 
-            // Atualiza a prioridade selecionada
-            put("prioridade", spnPrioridade.selectedItem.toString())
+            // Atualiza prioridade
+            put(
+                "prioridade",
+                spnPrioridade.selectedItem.toString()
+            )
 
-            // Atualiza o usuário
-            put("usuario", usuario)
+            // Atualiza usuário
+            put(
+                "usuario",
+                usuario
+            )
         }
 
-        // Executa atualização no banco de dados
+        // Atualiza banco
         dbHelper.writableDatabase.update(
 
-            // Nome da tabela
             "tarefas",
 
-            // Valores atualizados
             valores,
 
-            // Condição WHERE
             "id=?",
 
-            // Valor que substituirá o ?
-            arrayOf(tarefaId.toString())
+            arrayOf(
+                tarefaId.toString()
+            )
         )
 
-        // Exibe mensagem de sucesso
-        Toast.makeText(this, "Tarefa atualizada!", Toast.LENGTH_SHORT).show()
+        // Mensagem sucesso
+        Toast.makeText(
 
-        // Fecha a tela atual
+            this,
+
+            "Tarefa atualizada!",
+
+            Toast.LENGTH_SHORT
+
+        ).show()
+
+        // Fecha tela
         finish()
     }
 }

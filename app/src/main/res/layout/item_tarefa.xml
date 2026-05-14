@@ -7,8 +7,8 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="14dp"
     android:layout_marginVertical="8dp"
-    app:cardCornerRadius="18dp"
-    app:cardElevation="6dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp"
     app:cardBackgroundColor="#FFFFFF">
 
     <LinearLayout
@@ -16,9 +16,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="16dp">
+        android:padding="18dp">
 
-        <!-- CONTEÚDO -->
+        <!-- TEXTO -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -33,10 +33,21 @@
                 android:textColor="#222222"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
-
         </LinearLayout>
 
-        <!-- BOTÃO EDITAR -->
+        <!-- CONCLUIR -->
+        <Button
+            android:id="@+id/btnConcluir"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:text="✔"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#43A047"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- EDITAR -->
         <ImageButton
             android:id="@+id/btnEditar"
             android:layout_width="48dp"
@@ -47,7 +58,7 @@
             android:src="@android:drawable/ic_menu_edit"
             android:tint="#0F768E"/>
 
-        <!-- BOTÃO DELETAR -->
+        <!-- DELETAR -->
         <ImageButton
             android:id="@+id/btnDeletar"
             android:layout_width="48dp"

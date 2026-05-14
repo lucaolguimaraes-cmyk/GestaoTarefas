@@ -10,10 +10,9 @@
 
     <!-- TÍTULO -->
     <TextView
-        android:id="@+id/txtTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Minhas Tarefas"
+        android:text="Tarefas Concluídas"
         android:textColor="@android:color/white"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -30,31 +29,9 @@
         android:background="@drawable/button_style"
         android:padding="18dp">
 
-        <!-- BUSCA -->
-        <EditText
-            android:id="@+id/edtBusca"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:hint="Buscar tarefa"
-            android:textColor="#000000"
-            android:textColorHint="#888888"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:background="@drawable/edittext_style"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- FILTRO STATUS -->
-        <Spinner
-            android:id="@+id/spnFiltroStatus"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:background="@drawable/edittext_style"
-            android:padding="8dp"
-            android:layout_marginBottom="20dp"/>
-
         <!-- LISTA -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
+            android:id="@+id/recyclerConcluidas"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
