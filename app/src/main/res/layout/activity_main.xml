@@ -73,6 +73,30 @@
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/edittext_style"/>
 
+            <EditText
+                android:id="@+id/edtDescricao"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:hint="Descrição"
+                android:gravity="top"
+                android:padding="16dp"
+                android:textColor="#000000"
+                android:textColorHint="#000000"
+                android:background="@drawable/edittext_style"
+                android:layout_marginBottom="16dp"/>
+
+            <EditText
+                android:id="@+id/edtData"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Data: dd/MM/yyyy"
+                android:textColor="#000000"
+                android:textColorHint="#000000"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/edittext_style"
+                android:layout_marginBottom="16dp"/>
+
             <!-- PRIORIDADE -->
             <Spinner
                 android:id="@+id/spnPrioridade"
@@ -103,22 +127,16 @@
                 android:backgroundTint="#0F768E"
                 android:layout_marginBottom="14dp"/>
 
-            <!-- BOTÃO VER -->
             <Button
-                android:id="@+id/btnVerTarefas"
+                android:id="@+id/btnVoltar"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="Ver tarefas"
+                android:layout_height="50dp"
+                android:text="Voltar"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@android:color/white"
-                android:backgroundTint="#6A1B9A"/>
-
-            <Button
-                android:id="@+id/btnConcluidas"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ver tarefas concluídas"/>
+                android:backgroundTint="#0F768E"
+                android:layout_marginTop="0dp"/>
 
         </LinearLayout>
 

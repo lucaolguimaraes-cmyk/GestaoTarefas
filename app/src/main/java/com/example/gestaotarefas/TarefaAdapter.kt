@@ -6,12 +6,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
 class TarefaAdapter(
 
     // Lista
     private var lista: List<Tarefa>,
+
+    // DETALHES
+    private val onDetalhes: (Tarefa) -> Unit,
 
     // Editar
     private val onEditar: (Tarefa) -> Unit,
@@ -29,6 +33,10 @@ class TarefaAdapter(
 
     // ViewHolder
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        // CARD
+        val card =
+            view.findViewById<CardView>(R.id.cardTarefa)
 
         // Texto
         val txt =
@@ -80,7 +88,13 @@ class TarefaAdapter(
 
         holder.txt.text =
 
-            "${t.titulo}\n${t.status} | ${t.prioridade}"
+            "${t.titulo} \n\n${t.status}"
+
+        // DETALHES
+        holder.card.setOnClickListener {
+
+            onDetalhes(t)
+        }
 
         // Editar
         holder.btnEditar.setOnClickListener {

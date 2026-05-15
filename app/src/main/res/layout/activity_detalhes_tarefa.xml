@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:background="@drawable/bg_gradient">
+
+        <!-- TÍTULO -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detalhes da Tarefa"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"/>
+
+        <!-- CARD -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/button_style"
+            android:padding="24dp">
+
+            <!-- TÍTULO TAREFA -->
+            <TextView
+                android:id="@+id/txtTituloDetalhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Título"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- STATUS -->
+            <TextView
+                android:id="@+id/txtStatusDetalhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:layout_marginBottom="14dp"/>
+
+            <!-- PRIORIDADE -->
+            <TextView
+                android:id="@+id/txtPrioridadeDetalhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prioridade"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- LABEL DESCRIÇÃO -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Descrição"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- DESCRIÇÃO -->
+            <TextView
+                android:id="@+id/txtDescricaoDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descrição da tarefa"
+                android:textSize="17sp"
+                android:textColor="#444444"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- DATA -->
+            <TextView
+                android:id="@+id/txtDataDetalhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:layout_marginBottom="30dp"/>
+
+            <!-- BOTÃO -->
+            <Button
+                android:id="@+id/btnVoltarDetalhes"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Voltar"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#0F768E"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

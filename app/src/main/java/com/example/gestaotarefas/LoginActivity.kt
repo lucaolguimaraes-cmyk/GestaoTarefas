@@ -83,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
                 ).show()
 
                 // Cria Intent para abrir MainActivity
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, CheckpointActivity::class.java)
 
                 // Envia o nome do usuário para próxima tela
                 intent.putExtra("usuario", nome)

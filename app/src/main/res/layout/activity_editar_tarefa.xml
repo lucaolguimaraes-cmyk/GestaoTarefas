@@ -1,74 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/bg_gradient"
-    android:gravity="center"
-    android:padding="24dp">
+    android:fillViewport="true"
+    android:background="@drawable/bg_gradient">
 
-    <!-- TÍTULO -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Editar Tarefa"
-        android:textColor="@android:color/white"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="30dp"/>
-
-    <!-- CARD -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/button_style"
+        android:gravity="center_horizontal"
         android:padding="24dp">
 
         <!-- TÍTULO -->
-        <EditText
-            android:id="@+id/edtTituloEditar"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:hint="Título da tarefa"
-            android:textColor="#000000"
-            android:textColorHint="#888888"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:background="@drawable/edittext_style"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- STATUS -->
-        <Spinner
-            android:id="@+id/spnStatusEditar"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:background="@drawable/edittext_style"
-            android:padding="8dp"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- PRIORIDADE -->
-        <Spinner
-            android:id="@+id/spnPrioridadeEditar"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:background="@drawable/edittext_style"
-            android:padding="8dp"
-            android:layout_marginBottom="24dp"/>
-
-        <!-- BOTÃO -->
-        <Button
-            android:id="@+id/btnSalvarEditar"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:text="Salvar Alterações"
-            android:textStyle="bold"
-            android:textSize="16sp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Editar Tarefa"
             android:textColor="@android:color/white"
-            android:backgroundTint="#0F768E"/>
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"/>
+
+        <!-- CARD -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/button_style"
+            android:padding="24dp">
+
+            <!-- TÍTULO -->
+            <EditText
+                android:id="@+id/edtTituloEditar"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Título da tarefa"
+                android:textColor="#000000"
+                android:textColorHint="#888888"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/edittext_style"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- DESCRIÇÃO -->
+            <EditText
+                android:id="@+id/edtDescricaoEditar"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:hint="Descrição"
+                android:gravity="top"
+                android:textColor="#000000"
+                android:textColorHint="#888888"
+                android:padding="16dp"
+                android:background="@drawable/edittext_style"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- DATA -->
+            <EditText
+                android:id="@+id/edtDataEditar"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Data: dd/MM/yyyy"
+                android:textColor="#000000"
+                android:textColorHint="#888888"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/edittext_style"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- STATUS -->
+            <Spinner
+                android:id="@+id/spnStatusEditar"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/edittext_style"
+                android:padding="8dp"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- PRIORIDADE -->
+            <Spinner
+                android:id="@+id/spnPrioridadeEditar"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/edittext_style"
+                android:padding="8dp"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- BOTÃO -->
+            <Button
+                android:id="@+id/btnSalvarEditar"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Salvar Alterações"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#0F768E"/>
+
+            <Button
+                android:id="@+id/btnVoltar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Voltar"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#0F768E"
+                android:layout_marginTop="0dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

@@ -12,25 +12,25 @@
 
     <!-- TITULO -->
 
+    <!-- ICONE -->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bem Vindo ao\nCheckPoint"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="Bem Vindo"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="32sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:layout_marginBottom="40dp"/>
-
-    <!-- ICONE -->
+        android:textStyle="bold" />
 
     <ImageView
-        android:layout_width="150dp"
+        android:layout_width="315dp"
         android:layout_height="150dp"
-        android:src="@android:drawable/ic_menu_myplaces"
-        android:tint="@android:color/white"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/logooo"
+        android:tint="@android:color/white" />
 
     <!-- TEXTO LOGIN -->
 

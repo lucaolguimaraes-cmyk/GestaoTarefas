@@ -10,22 +10,25 @@ import android.content.SharedPreferences
 
 class MainActivity : AppCompatActivity() {
 
-    // Banco de dados
+    // Banco
     lateinit var dbHelper: DatabaseHelper
 
-    // Campo título
+    // Campos
     lateinit var edtTitulo: EditText
 
-    // Spinner prioridade
+    lateinit var edtDescricao: EditText
+
+    lateinit var edtData: EditText
+
+    // Spinners
     lateinit var spnPrioridade: Spinner
 
-    // Spinner status
     lateinit var spnStatus: Spinner
 
-    // ID da tarefa
+    // ID tarefa
     var tarefaId: Int = -1
 
-    // Usuário logado
+    // Usuário
     var usuario: String? = null
 
     // SharedPreferences
@@ -50,6 +53,16 @@ class MainActivity : AppCompatActivity() {
         edtTitulo =
             findViewById(R.id.edtTitulo)
 
+        edtDescricao =
+            findViewById(R.id.edtDescricao)
+
+        edtData =
+            findViewById(R.id.edtData)
+
+        edtData.addTextChangedListener(
+            DateMask(edtData)
+        )
+
         spnPrioridade =
             findViewById(R.id.spnPrioridade)
 
@@ -65,14 +78,10 @@ class MainActivity : AppCompatActivity() {
         val btnSalvar =
             findViewById<Button>(R.id.btnSalvar)
 
-        val btnVerTarefas =
-            findViewById<Button>(R.id.btnVerTarefas)
+        val btnVoltar =
+            findViewById<Button>(R.id.btnVoltar)
 
-        // NOVO BOTÃO
-        val btnConcluidas =
-            findViewById<Button>(R.id.btnConcluidas)
-
-        // Lista prioridades
+        // Prioridades
         val prioridades = arrayOf(
 
             "Baixa Prioridade",
@@ -82,21 +91,21 @@ class MainActivity : AppCompatActivity() {
             "Alta Prioridade"
         )
 
-        // LISTA STATUS MODIFICADA
+        // Status
         val statusList = arrayOf(
 
             "A fazer",
 
             "Em andamento",
 
-            "Quase concluída",
+            "Quase concluída"
         )
 
-        // Recebe usuário
+        // Usuário
         usuario =
             intent.getStringExtra("usuario")
 
-        // Se não veio pelo intent
+        // Se não veio
         if (usuario.isNullOrEmpty()) {
 
             usuario =
@@ -118,7 +127,7 @@ class MainActivity : AppCompatActivity() {
         txtOla.text =
             "Olá, $primeiroNome"
 
-        // LOGOUT
+        // Logout
         btnLogout.setOnClickListener {
 
             prefs.edit()
@@ -132,6 +141,12 @@ class MainActivity : AppCompatActivity() {
                 )
 
             startActivity(intent)
+
+            finish()
+        }
+
+
+        btnVoltar.setOnClickListener {
 
             finish()
         }
@@ -160,61 +175,24 @@ class MainActivity : AppCompatActivity() {
                 statusList
             )
 
-        // Verifica edição
+        // ID tarefa
         tarefaId =
             intent.getIntExtra("id", -1)
 
-        // Se estiver editando
+        // Editando
         if (tarefaId != -1) {
 
             carregarTarefa(tarefaId)
         }
 
-        // SALVAR
+        // Salvar
         btnSalvar.setOnClickListener {
 
             salvarOuAtualizar()
         }
-
-        // VER TAREFAS
-        btnVerTarefas.setOnClickListener {
-
-            val intent =
-
-                Intent(
-                    this,
-                    PrioridadesActivity::class.java
-                )
-
-            intent.putExtra(
-                "usuario",
-                usuario
-            )
-
-            startActivity(intent)
-        }
-
-        // NOVO
-        // VER CONCLUÍDAS
-        btnConcluidas.setOnClickListener {
-
-            val intent =
-
-                Intent(
-                    this,
-                    ConcluidasActivity::class.java
-                )
-
-            intent.putExtra(
-                "usuario",
-                usuario
-            )
-
-            startActivity(intent)
-        }
     }
 
-    // Quando Activity volta
+    // Quando voltar
     override fun onResume() {
 
         super.onResume()
@@ -222,11 +200,17 @@ class MainActivity : AppCompatActivity() {
         limparCampos()
     }
 
-    // Salvar ou atualizar
+    // Salvar
     private fun salvarOuAtualizar() {
 
         val titulo =
             edtTitulo.text.toString().trim()
+
+        val descricao =
+            edtDescricao.text.toString().trim()
+
+        val data =
+            edtData.text.toString().trim()
 
         // Validação
         if (titulo.isEmpty()) {
@@ -244,7 +228,6 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        // Dados
         val status =
             spnStatus.selectedItem.toString()
 
@@ -259,6 +242,10 @@ class MainActivity : AppCompatActivity() {
 
             put("titulo", titulo)
 
+            put("descricao", descricao)
+
+            put("data", data)
+
             put("status", status)
 
             put("prioridade", prioridade)
@@ -266,7 +253,7 @@ class MainActivity : AppCompatActivity() {
             put("usuario", usuario)
         }
 
-        // NOVA TAREFA
+        // Nova tarefa
         if (tarefaId == -1) {
 
             db.insert(
@@ -288,11 +275,9 @@ class MainActivity : AppCompatActivity() {
 
             ).show()
 
-            limparCampos()
-
         } else {
 
-            // ATUALIZA
+            // Atualiza
             db.update(
 
                 "tarefas",
@@ -317,9 +302,9 @@ class MainActivity : AppCompatActivity() {
             ).show()
 
             tarefaId = -1
-
-            limparCampos()
         }
+
+        limparCampos()
     }
 
     // Carrega tarefa
@@ -335,6 +320,8 @@ class MainActivity : AppCompatActivity() {
                 """
                 SELECT id,
                        titulo,
+                       descricao,
+                       data,
                        status,
                        prioridade
                 FROM tarefas
@@ -344,7 +331,6 @@ class MainActivity : AppCompatActivity() {
                 arrayOf(id.toString())
             )
 
-        // Se encontrou
         if (cursor.moveToFirst()) {
 
             // Título
@@ -352,15 +338,25 @@ class MainActivity : AppCompatActivity() {
                 cursor.getString(1)
             )
 
+            // Descrição
+            edtDescricao.setText(
+                cursor.getString(2)
+            )
+
+            // Data
+            edtData.setText(
+                cursor.getString(3)
+            )
+
             // Status
             val status =
-                cursor.getString(2)
+                cursor.getString(4)
 
             // Prioridade
             val prioridade =
-                cursor.getString(3)
+                cursor.getString(5)
 
-            // Posição status
+            // Status spinner
             val statusIndex =
 
                 (spnStatus.adapter
@@ -368,7 +364,6 @@ class MainActivity : AppCompatActivity() {
 
                     .getPosition(status)
 
-            // Se encontrou
             if (statusIndex >= 0) {
 
                 spnStatus.setSelection(
@@ -376,7 +371,7 @@ class MainActivity : AppCompatActivity() {
                 )
             }
 
-            // Posição prioridade
+            // Prioridade spinner
             val prioridadeIndex =
 
                 (spnPrioridade.adapter
@@ -384,7 +379,6 @@ class MainActivity : AppCompatActivity() {
 
                     .getPosition(prioridade)
 
-            // Se encontrou
             if (prioridadeIndex >= 0) {
 
                 spnPrioridade.setSelection(
@@ -396,22 +390,21 @@ class MainActivity : AppCompatActivity() {
         cursor.close()
     }
 
-    // Limpa campos
+    // Limpa
     private fun limparCampos() {
 
-        // Limpa texto
         edtTitulo.setText("")
 
-        // Primeira prioridade
+        edtDescricao.setText("")
+
+        edtData.setText("")
+
         spnPrioridade.setSelection(0)
 
-        // Primeiro status
         spnStatus.setSelection(0)
 
-        // Reseta ID
         tarefaId = -1
 
-        // Remove extra
         intent.removeExtra("id")
     }
 }

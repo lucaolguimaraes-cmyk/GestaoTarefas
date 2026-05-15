@@ -4,49 +4,34 @@ import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.jvm.java
 
 class ListaTarefasActivity : AppCompatActivity() {
 
-    // Banco
     lateinit var db: DatabaseHelper
 
-    // Recycler
     lateinit var recycler: RecyclerView
 
-    // Adapter
     lateinit var adapter: TarefaAdapter
 
-    // Busca
     lateinit var edtBusca: EditText
 
-    // Spinner status
     lateinit var spnStatus: Spinner
 
-    // Título
     lateinit var txtTitulo: TextView
 
-    // Lista completa
     var lista = ArrayList<Tarefa>()
 
-    // Lista filtrada
     var listaFiltrada = ArrayList<Tarefa>()
 
-    // Usuário
     var usuario: String? = null
 
-    // Prioridade
     var prioridadeSelecionada: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,10 +40,8 @@ class ListaTarefasActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_lista)
 
-        // Banco
         db = DatabaseHelper(this)
 
-        // Componentes
         recycler = findViewById(R.id.recycler)
 
         edtBusca = findViewById(R.id.edtBusca)
@@ -70,35 +53,27 @@ class ListaTarefasActivity : AppCompatActivity() {
         val btnVoltar =
             findViewById<Button>(R.id.btnVoltar)
 
-        // Dados recebidos
         usuario =
             intent.getStringExtra("usuario")
 
         prioridadeSelecionada =
             intent.getStringExtra("prioridade")
 
-        // Título
         txtTitulo.text =
             prioridadeSelecionada
 
-        // Voltar
         btnVoltar.setOnClickListener {
 
             finish()
         }
 
-        // Recycler
         recycler.layoutManager =
             LinearLayoutManager(this)
 
-        recycler.setHasFixedSize(true)
-
-        // Adapter
         adapter = TarefaAdapter(
 
             listaFiltrada,
 
-            // EDITAR
             onEditar = { tarefa ->
 
                 val intent = Intent(
@@ -121,34 +96,50 @@ class ListaTarefasActivity : AppCompatActivity() {
                 startActivity(intent)
             },
 
-            // DELETAR
             onDeletar = { tarefa ->
 
                 deletar(tarefa.id)
             },
 
-            // CONCLUIR
             onConcluir = { tarefa ->
 
                 concluirTarefa(tarefa.id)
+            },
+
+            onDetalhes = { tarefa ->
+
+                val intent = Intent(
+
+                    this,
+
+                    DetalhesTarefaActivity::class.java
+                )
+
+                intent.putExtra("titulo", tarefa.titulo)
+
+                intent.putExtra("descricao", tarefa.descricao)
+
+                intent.putExtra("data", tarefa.data)
+
+                intent.putExtra("status", tarefa.status)
+
+                intent.putExtra("prioridade", tarefa.prioridade)
+
+                startActivity(intent)
             }
         )
 
         recycler.adapter = adapter
 
-        // Spinner
         configurarSpinner()
 
-        // Carrega tarefas
         carregarTarefas()
 
-        // Busca
         edtBusca.addTextChangedListener {
 
             aplicarFiltros()
         }
 
-        // Evento spinner
         spnStatus.onItemSelectedListener =
 
             object : AdapterView.OnItemSelectedListener {
@@ -173,7 +164,6 @@ class ListaTarefasActivity : AppCompatActivity() {
                 }
             }
 
-        // Swipe deletar
         val swipe = ItemTouchHelper(
 
             object : ItemTouchHelper.SimpleCallback(
@@ -220,7 +210,6 @@ class ListaTarefasActivity : AppCompatActivity() {
         swipe.attachToRecyclerView(recycler)
     }
 
-    // Atualiza ao voltar
     override fun onResume() {
 
         super.onResume()
@@ -228,7 +217,6 @@ class ListaTarefasActivity : AppCompatActivity() {
         carregarTarefas()
     }
 
-    // Spinner status
     private fun configurarSpinner() {
 
         val status = arrayOf(
@@ -254,7 +242,6 @@ class ListaTarefasActivity : AppCompatActivity() {
             )
     }
 
-    // Carrega tarefas
     private fun carregarTarefas() {
 
         lista.clear()
@@ -262,7 +249,12 @@ class ListaTarefasActivity : AppCompatActivity() {
         val cursor = db.readableDatabase.rawQuery(
 
             """
-            SELECT id, titulo, status, prioridade
+            SELECT id,
+                   titulo,
+                   descricao,
+                   data,
+                   status,
+                   prioridade
             FROM tarefas
             WHERE usuario = ?
             AND prioridade = ?
@@ -289,7 +281,11 @@ class ListaTarefasActivity : AppCompatActivity() {
 
                     cursor.getString(2),
 
-                    cursor.getString(3)
+                    cursor.getString(3),
+
+                    cursor.getString(4),
+
+                    cursor.getString(5)
                 )
             )
         }
@@ -299,7 +295,6 @@ class ListaTarefasActivity : AppCompatActivity() {
         aplicarFiltros()
     }
 
-    // Busca e filtros
     private fun aplicarFiltros() {
 
         val texto =
@@ -332,7 +327,6 @@ class ListaTarefasActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
-    // Concluir tarefa
     private fun concluirTarefa(id: Int) {
 
         val valores = ContentValues()
@@ -368,7 +362,6 @@ class ListaTarefasActivity : AppCompatActivity() {
         carregarTarefas()
     }
 
-    // Deletar
     private fun deletar(id: Int) {
 
         db.writableDatabase.delete(

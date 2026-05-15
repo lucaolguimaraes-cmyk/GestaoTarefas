@@ -3,10 +3,13 @@ package com.example.gestaotarefas
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 
 class PrioridadesActivity : AppCompatActivity() {
+
+    lateinit var db: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -14,8 +17,12 @@ class PrioridadesActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_prioridades)
 
+        db = DatabaseHelper(this)
+
         val usuario =
             intent.getStringExtra("usuario")
+
+        contarPrioridades(usuario)
 
         val cardAlta =
             findViewById<CardView>(R.id.cardAlta)
@@ -28,6 +35,15 @@ class PrioridadesActivity : AppCompatActivity() {
 
         val btnVoltar =
             findViewById<Button>(R.id.btnVoltar)
+
+        val txtAlta =
+            findViewById<TextView>(R.id.txtAlta)
+
+        val txtMedia =
+            findViewById<TextView>(R.id.txtMedia)
+
+        val txtBaixa =
+            findViewById<TextView>(R.id.txtBaixa)
 
         cardAlta.setOnClickListener {
 
@@ -83,5 +99,60 @@ class PrioridadesActivity : AppCompatActivity() {
         )
 
         startActivity(intent)
+    }
+
+    private fun contarPrioridades(
+        usuario: String?
+    ) {
+
+        val dbRead =
+            db.readableDatabase
+
+        fun contar(prioridade: String): Int {
+
+            val cursor = dbRead.rawQuery(
+
+                """
+            SELECT COUNT(*)
+            FROM tarefas
+            WHERE usuario = ?
+            AND prioridade = ?
+            """.trimIndent(),
+
+                arrayOf(
+                    usuario ?: "",
+                    prioridade
+                )
+            )
+
+            var total = 0
+
+            if (cursor.moveToFirst()) {
+
+                total = cursor.getInt(0)
+            }
+
+            cursor.close()
+
+            return total
+        }
+
+        val alta =
+            contar("Alta Prioridade")
+
+        val media =
+            contar("Média Prioridade")
+
+        val baixa =
+            contar("Baixa Prioridade")
+
+        findViewById<TextView>(R.id.txtAlta).text =
+            "Alta Prioridade ($alta)"
+
+        findViewById<TextView>(R.id.txtMedia).text =
+            "Média Prioridade ($media)"
+
+        findViewById<TextView>(R.id.txtBaixa).text =
+            "Baixa Prioridade ($baixa)"
     }
 }

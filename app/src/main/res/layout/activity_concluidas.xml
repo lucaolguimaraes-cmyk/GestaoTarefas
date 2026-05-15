@@ -20,7 +20,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="24dp"/>
 
-    <!-- CARD -->
+    <!-- CARD PRINCIPAL -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -28,6 +28,17 @@
         android:orientation="vertical"
         android:background="@drawable/button_style"
         android:padding="18dp">
+
+        <!-- QUANTIDADE -->
+        <TextView
+            android:id="@+id/txtQuantidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 tarefas concluídas"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginBottom="14dp"/>
 
         <!-- LISTA -->
         <androidx.recyclerview.widget.RecyclerView
@@ -38,17 +49,39 @@
             android:clipToPadding="false"
             android:paddingBottom="10dp"/>
 
-        <!-- BOTÃO -->
-        <Button
-            android:id="@+id/btnVoltar"
+        <!-- BOTÕES -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:text="Voltar"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@android:color/white"
-            android:backgroundTint="#0F768E"
-            android:layout_marginTop="18dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="18dp">
+
+            <!-- LIMPAR -->
+            <Button
+                android:id="@+id/btnLimpar"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:text="Limpar"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#D32F2F"
+                android:layout_marginEnd="8dp"/>
+
+            <!-- VOLTAR -->
+            <Button
+                android:id="@+id/btnVoltar"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:text="Voltar"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#0F768E"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

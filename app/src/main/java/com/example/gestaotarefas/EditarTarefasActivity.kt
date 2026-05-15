@@ -14,8 +14,12 @@ class EditarTarefasActivity : AppCompatActivity() {
     // Banco de dados
     lateinit var dbHelper: DatabaseHelper
 
-    // Campo título
+    // Campos
     lateinit var edtTitulo: EditText
+
+    lateinit var edtDescricao: EditText
+
+    lateinit var edtData: EditText
 
     // Spinner prioridade
     lateinit var spnPrioridade: Spinner
@@ -45,6 +49,16 @@ class EditarTarefasActivity : AppCompatActivity() {
         edtTitulo =
             findViewById(R.id.edtTituloEditar)
 
+        edtDescricao =
+            findViewById(R.id.edtDescricaoEditar)
+
+        edtData =
+            findViewById(R.id.edtDataEditar)
+
+        edtData.addTextChangedListener(
+            DateMask(edtData)
+        )
+
         spnPrioridade =
             findViewById(R.id.spnPrioridadeEditar)
 
@@ -53,6 +67,9 @@ class EditarTarefasActivity : AppCompatActivity() {
 
         btnSalvar =
             findViewById(R.id.btnSalvarEditar)
+
+        val btnVoltar =
+            findViewById<Button>(R.id.btnVoltar)
 
         // PRIORIDADES
         val prioridades = arrayOf(
@@ -73,6 +90,11 @@ class EditarTarefasActivity : AppCompatActivity() {
 
             "Quase concluída"
         )
+
+        btnVoltar.setOnClickListener {
+
+            finish()
+        }
 
         // Adapter prioridade
         spnPrioridade.adapter =
@@ -125,10 +147,14 @@ class EditarTarefasActivity : AppCompatActivity() {
         val cursor = db.rawQuery(
 
             """
-            SELECT titulo, status, prioridade
-            FROM tarefas
-            WHERE id=?
-            """.trimIndent(),
+        SELECT titulo,
+               descricao,
+               data,
+               status,
+               prioridade
+        FROM tarefas
+        WHERE id=?
+        """.trimIndent(),
 
             arrayOf(tarefaId.toString())
         )
@@ -140,15 +166,25 @@ class EditarTarefasActivity : AppCompatActivity() {
                 cursor.getString(0)
             )
 
+            // Descrição
+            edtDescricao.setText(
+                cursor.getString(1)
+            )
+
+            // Data
+            edtData.setText(
+                cursor.getString(2)
+            )
+
             // Status
             val status =
-                cursor.getString(1)
+                cursor.getString(3)
 
             // Prioridade
             val prioridade =
-                cursor.getString(2)
+                cursor.getString(4)
 
-            // Seleciona status
+            // Spinner status
             spnStatus.setSelection(
 
                 (
@@ -159,7 +195,7 @@ class EditarTarefasActivity : AppCompatActivity() {
                     .getPosition(status)
             )
 
-            // Seleciona prioridade
+            // Spinner prioridade
             spnPrioridade.setSelection(
 
                 (
@@ -177,9 +213,15 @@ class EditarTarefasActivity : AppCompatActivity() {
     // Atualiza tarefa
     private fun atualizarTarefa() {
 
-        // Título digitado
+        // Dados
         val titulo =
             edtTitulo.text.toString()
+
+        val descricao =
+            edtDescricao.text.toString()
+
+        val data =
+            edtData.text.toString()
 
         // Validação
         if (titulo.isEmpty()) {
@@ -204,6 +246,18 @@ class EditarTarefasActivity : AppCompatActivity() {
             put(
                 "titulo",
                 titulo
+            )
+
+            // Atualiza descrição
+            put(
+                "descricao",
+                descricao
+            )
+
+            // Atualiza data
+            put(
+                "data",
+                data
             )
 
             // Atualiza status

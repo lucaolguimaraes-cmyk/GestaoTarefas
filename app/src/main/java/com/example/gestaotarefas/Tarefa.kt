@@ -14,6 +14,10 @@ data class Tarefa(
     // Tipo String representa texto
     val titulo: String,
 
+    val descricao: String,
+
+    val data: String,
+
     // Status atual da tarefa
     // Exemplo: "A fazer", "Em andamento", etc.
     val status: String,

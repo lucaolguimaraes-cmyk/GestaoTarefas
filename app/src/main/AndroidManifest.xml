@@ -30,6 +30,12 @@
         <!-- CADASTRO -->
         <activity android:name=".CadastroActivity" />
 
+        <activity android:name=".CheckpointActivity"/>
+
+        <activity android:name=".DetalhesTarefaActivity"/>
+
+        <activity android:name=".DashboardActivity"/>
+
         <!-- LOGIN -->
         <activity
             android:name=".LoginActivity"

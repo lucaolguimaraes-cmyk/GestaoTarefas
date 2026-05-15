@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp"
+        android:background="@drawable/bg_gradient">
+
+        <!-- TOPO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp">
+
+            <TextView
+                android:id="@+id/txtOla"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Olá"
+                android:textColor="@android:color/white"
+                android:textSize="28sp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Logout"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#0F768E"/>
+        </LinearLayout>
+
+        <!-- TÍTULO -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CheckPoint"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="40dp"/>
+
+        <!-- CARD PRINCIPAL -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/button_style"
+            android:padding="28dp">
+
+            <!-- BOTÃO ADICIONAR -->
+            <Button
+                android:id="@+id/btnAdicionar"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Adicionar tarefas"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#0F768E"
+                android:layout_marginBottom="18dp"/>
+
+            <!-- BOTÃO VER -->
+            <Button
+                android:id="@+id/btnVer"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Ver tarefas"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#6A1B9A"
+                android:layout_marginBottom="18dp"/>
+
+            <!-- BOTÃO CONCLUÍDAS -->
+            <Button
+                android:id="@+id/btnConcluidas"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Ver tarefas concluídas"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#43A047"/>
+
+            <Button
+                android:id="@+id/btnDashboard"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Dashboard semanal"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#FF9800"
+                android:layout_marginTop="16dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
