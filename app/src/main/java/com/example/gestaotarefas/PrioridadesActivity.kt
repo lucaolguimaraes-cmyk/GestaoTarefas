@@ -75,6 +75,16 @@ class PrioridadesActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+
+        super.onResume()
+
+        val usuario =
+            intent.getStringExtra("usuario")
+
+        contarPrioridades(usuario)
+    }
+
 
 
     private fun abrirLista(
@@ -113,15 +123,17 @@ class PrioridadesActivity : AppCompatActivity() {
             val cursor = dbRead.rawQuery(
 
                 """
-            SELECT COUNT(*)
-            FROM tarefas
-            WHERE usuario = ?
-            AND prioridade = ?
-            """.trimIndent(),
+    SELECT COUNT(*)
+    FROM tarefas
+    WHERE usuario = ?
+    AND prioridade = ?
+    AND status != ?
+    """.trimIndent(),
 
                 arrayOf(
                     usuario ?: "",
-                    prioridade
+                    prioridade,
+                    "Concluída"
                 )
             )
 
