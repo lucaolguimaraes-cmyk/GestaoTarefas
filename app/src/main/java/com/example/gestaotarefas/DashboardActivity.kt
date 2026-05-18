@@ -1,7 +1,7 @@
 package com.example.gestaotarefas
 
-import android.graphics.Color
 import android.database.Cursor
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -11,6 +11,7 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.ValueFormatter
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -18,8 +19,9 @@ class DashboardActivity : AppCompatActivity() {
 
     lateinit var txtHumor: TextView
 
-    lateinit var db: DatabaseHelper
+    lateinit var txtTotal: TextView
 
+    lateinit var db: DatabaseHelper
 
     var usuario: String? = null
 
@@ -42,6 +44,9 @@ class DashboardActivity : AppCompatActivity() {
 
         txtHumor =
             findViewById(R.id.txtHumor)
+
+        txtTotal =
+            findViewById(R.id.txtTotal)
 
         db = DatabaseHelper(this)
 
@@ -106,6 +111,12 @@ class DashboardActivity : AppCompatActivity() {
 
         cursor.close()
 
+        val total =
+            fazer + andamento + quase + concluidas
+
+        txtTotal.text =
+            "$total tarefas no total"
+
         val entries =
             ArrayList<PieEntry>()
 
@@ -157,19 +168,32 @@ class DashboardActivity : AppCompatActivity() {
                 ""
             )
 
-        // CORES SEM AZUL
+        // CORES
         dataSet.colors = listOf(
 
             Color.rgb(244, 67, 54),     // vermelho
-            Color.rgb(255, 152, 0),     // laranja
-            Color.rgb(156, 39, 176),    // roxo
-            Color.rgb(76, 175, 80)      // verde
+            Color.rgb(255, 152, 0),    // laranja
+            Color.rgb(156, 39, 176),   // roxo
+            Color.rgb(76, 175, 80)     // verde
         )
 
         dataSet.valueTextSize = 22f
 
         dataSet.valueTextColor =
             Color.WHITE
+
+        // REMOVE DECIMAIS
+        dataSet.valueFormatter =
+            object : ValueFormatter() {
+
+                override fun getPieLabel(
+                    value: Float,
+                    pieEntry: PieEntry?
+                ): String {
+
+                    return value.toInt().toString()
+                }
+            }
 
         val data =
             PieData(dataSet)
@@ -195,8 +219,6 @@ class DashboardActivity : AppCompatActivity() {
 
         pieChart.transparentCircleRadius = 0f
 
-
-        // LEGENDA
         // LEGENDA
         val legend =
             pieChart.legend

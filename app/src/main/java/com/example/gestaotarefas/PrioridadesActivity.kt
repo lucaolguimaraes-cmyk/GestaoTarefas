@@ -36,15 +36,6 @@ class PrioridadesActivity : AppCompatActivity() {
         val btnVoltar =
             findViewById<Button>(R.id.btnVoltar)
 
-        val txtAlta =
-            findViewById<TextView>(R.id.txtAlta)
-
-        val txtMedia =
-            findViewById<TextView>(R.id.txtMedia)
-
-        val txtBaixa =
-            findViewById<TextView>(R.id.txtBaixa)
-
         cardAlta.setOnClickListener {
 
             abrirLista(
@@ -85,8 +76,6 @@ class PrioridadesActivity : AppCompatActivity() {
         contarPrioridades(usuario)
     }
 
-
-
     private fun abrirLista(
         prioridade: String,
         usuario: String?
@@ -123,12 +112,12 @@ class PrioridadesActivity : AppCompatActivity() {
             val cursor = dbRead.rawQuery(
 
                 """
-    SELECT COUNT(*)
-    FROM tarefas
-    WHERE usuario = ?
-    AND prioridade = ?
-    AND status != ?
-    """.trimIndent(),
+                SELECT COUNT(*)
+                FROM tarefas
+                WHERE usuario = ?
+                AND prioridade = ?
+                AND status != ?
+                """.trimIndent(),
 
                 arrayOf(
                     usuario ?: "",
@@ -157,6 +146,12 @@ class PrioridadesActivity : AppCompatActivity() {
 
         val baixa =
             contar("Baixa Prioridade")
+
+        val totalAtivas =
+            alta + media + baixa
+
+        findViewById<TextView>(R.id.txtTotalPrioridades).text =
+            "$totalAtivas tarefas ativas"
 
         findViewById<TextView>(R.id.txtAlta).text =
             "Alta Prioridade ($alta)"
