@@ -23,5 +23,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "GestaoTarefas"
+rootProject.name = "CheckPoint"
 include(":app")

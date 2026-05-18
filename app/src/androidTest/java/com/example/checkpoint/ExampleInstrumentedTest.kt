@@ -1,4 +1,4 @@
-package com.example.gestaotarefas
+package com.example.checkpoint
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -1,4 +1,4 @@
-package com.example.gestaotarefas
+package com.example.checkpoint
 
 import android.content.ContentValues
 import android.content.Intent
@@ -10,6 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.checkpoint.R
 import kotlin.jvm.java
 
 class ListaTarefasActivity : AppCompatActivity() {

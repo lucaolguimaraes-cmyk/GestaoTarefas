@@ -1,4 +1,4 @@
-package com.example.gestaotarefas
+package com.example.checkpoint
 
 import android.text.Editable
 import android.text.TextWatcher

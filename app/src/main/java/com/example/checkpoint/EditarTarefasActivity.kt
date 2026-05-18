@@ -1,4 +1,4 @@
-package com.example.gestaotarefas
+package com.example.checkpoint
 
 import android.content.ContentValues
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import android.app.DatePickerDialog
+import com.example.checkpoint.R
 import java.util.Calendar
 
 class EditarTarefasActivity : AppCompatActivity() {

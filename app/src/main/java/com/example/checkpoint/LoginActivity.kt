@@ -1,4 +1,4 @@
-package com.example.gestaotarefas
+package com.example.checkpoint
 
 // Importa a classe Intent utilizada para trocar de telas
 import android.content.Intent
@@ -17,6 +17,7 @@ import android.widget.Toast
 
 // Importa AppCompatActivity
 import androidx.appcompat.app.AppCompatActivity
+import com.example.checkpoint.R
 
 // Activity responsável pela tela de login
 class LoginActivity : AppCompatActivity() {

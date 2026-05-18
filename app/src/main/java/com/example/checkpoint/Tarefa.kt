@@ -1,4 +1,4 @@
-package com.example.gestaotarefas
+package com.example.checkpoint
 
 // "data class" é uma classe usada para armazenar dados
 // O Kotlin automaticamente cria métodos úteis como:

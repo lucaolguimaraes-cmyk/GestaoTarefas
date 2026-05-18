@@ -1,9 +1,10 @@
-package com.example.gestaotarefas
+package com.example.checkpoint
 
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.checkpoint.R
 
 class DetalhesTarefaActivity : AppCompatActivity() {
 
