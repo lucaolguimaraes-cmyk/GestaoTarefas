@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.widget.*
 import android.database.Cursor
 import android.content.SharedPreferences
+import android.app.DatePickerDialog
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
@@ -126,6 +128,40 @@ class MainActivity : AppCompatActivity() {
         // Saudação
         txtOla.text =
             "Olá, $primeiroNome"
+
+        edtData.setOnClickListener {
+
+            val calendario = Calendar.getInstance()
+
+            val ano = calendario.get(Calendar.YEAR)
+            val mes = calendario.get(Calendar.MONTH)
+            val dia = calendario.get(Calendar.DAY_OF_MONTH)
+
+            val datePicker = DatePickerDialog(
+
+                this,
+
+                { _, year, month, dayOfMonth ->
+
+                    val dataFormatada =
+
+                        String.format(
+                            "%02d/%02d/%04d",
+                            dayOfMonth,
+                            month + 1,
+                            year
+                        )
+
+                    edtData.setText(dataFormatada)
+                },
+
+                ano,
+                mes,
+                dia
+            )
+
+            datePicker.show()
+        }
 
         // Logout
         btnLogout.setOnClickListener {

@@ -92,6 +92,8 @@
                 android:hint="Data: dd/MM/yyyy"
                 android:textColor="#000000"
                 android:textColorHint="#000000"
+                android:focusable="false"
+                android:clickable="true"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:background="@drawable/edittext_style"
