@@ -17,7 +17,6 @@ import android.widget.Toast
 
 // Importa a classe base AppCompatActivity
 import androidx.appcompat.app.AppCompatActivity
-import com.example.checkpoint.R
 
 // Criação da Activity de cadastro
 class CadastroActivity : AppCompatActivity() {

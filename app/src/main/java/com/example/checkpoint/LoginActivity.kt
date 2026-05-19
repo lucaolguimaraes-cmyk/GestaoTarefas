@@ -17,7 +17,6 @@ import android.widget.Toast
 
 // Importa AppCompatActivity
 import androidx.appcompat.app.AppCompatActivity
-import com.example.checkpoint.R
 
 // Activity responsável pela tela de login
 class LoginActivity : AppCompatActivity() {

@@ -8,7 +8,6 @@ import android.widget.*
 import android.database.Cursor
 import android.content.SharedPreferences
 import android.app.DatePickerDialog
-import com.example.checkpoint.R
 import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
